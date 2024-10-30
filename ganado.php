@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php
+session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    session_destroy(); // destruyo la sesión para empezar un nuevo juego
+    header("Location: index.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +19,9 @@
 <body>
     <h1>¡Enhorabuena!</h1>
     <p class="resultado">¡Has ganado! La palabra era: <strong><?php echo $_SESSION['palabra']; ?></strong></p>
-    <a href="index.php" class="boton">Jugar de nuevo</a>
+    <form method="post">
+        <button type="submit" class="boton">Jugar de nuevo</button>
+    </form>
 </body>
 
 </html>
